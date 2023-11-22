@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+import urllib.parse  
 import os
 import environ
 
@@ -90,13 +91,23 @@ WSGI_APPLICATION = 'djangocrudapi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://postgres:postgres@localhost:5432/mysite',
         conn_max_age=600
     )
 
+}"""
+DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'your-db-name',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': f'mongodb://{urllib.parse.quote("myuser")}:{urllib.parse.quote("roo1010")}@cluster001.0ckryhq.mongodb.net/?retryWrites=true&w=majority'
+            }  
+        }
 }
 """ 'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
